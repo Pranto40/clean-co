@@ -1,19 +1,20 @@
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Home from "./pages/Home";
-import Loing from "./pages/Loing";
-import Services from "./pages/Services";
+import { publicRoute } from "./routes/PublicRoute";
 
 function App() {
   return (
-    <div className="max-w-7xl mx-auto px-12">
+    <div className="">
       <Navbar>
-        <Home />
-        <About />
-        <Services />
-        <Contact />
-        <Loing />
+        <Routes>
+            {
+              publicRoute.map(({path, Component}, index) => <Route
+              path={path} element={<Component />}
+              key={index}
+              ></Route>
+              )
+            }
+        </Routes>
       </Navbar>
     </div>
   );
