@@ -22,20 +22,20 @@ const Login = () => {
     }
     return (
         <div className='flex justify-center items-center h-screen mt-16'>
-            <div class="card bg-base-100 shadow-xl">
-                <div class="card-body">
+            <div className="card bg-base-100 shadow-xl">
+                <div className="card-body">
                     <h1 className='text-center font-bold text-2xl'>Login</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                        <span class="label-text">Email</span>
+                <div className="form-control w-full max-w-xs">
+                    <label className="label">
+                        <span className="label-text">Email</span>
                     </label>
                     <input
-                    type="text" 
+                    type="email" 
                     placeholder="Your Email" 
-                    class="input input-bordered w-full"
+                    className="input input-bordered w-full"
                     {...register("email", {
                         required: {
                             value: true,
@@ -47,45 +47,45 @@ const Login = () => {
                         }
                       })}
                     />
-                    <label class="label">
-                    {errors.email?.type === 'required' && <span class="text-error label-text-alt">{errors.email.message}</span>}
-                    {errors.email?.type === 'pattern' && <span class="text-error label-text-alt">{errors.email.message}</span>}
+                    <label className="label">
+                    {errors.email?.type === 'required' && <span className="text-error label-text-alt">{errors.email.message}</span>}
+                    {errors.email?.type === 'pattern' && <span className="text-error label-text-alt">{errors.email.message}</span>}
                     </label>
                 </div>
-                <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                        <span class="label-text">Password</span>
+                <div className="form-control w-full max-w-xs">
+                    <label className="label">
+                        <span className="label-text">Password</span>
                     </label>
                     <input
-                    type="text" 
+                    type="password" 
                     placeholder="Password" 
-                    class="input input-bordered w-full"
+                    className="input input-bordered w-full"
                     {...register("password", {
                         required: {
                             value: true,
                             message: "Password Required"
                         },
-                        pattern: {
+                        maxLength: {
                             value: 6,
                             message: "must be 6 characters or longer"
                         }
                       })}
                     />
-                    <label class="label">
-                    {errors.password?.type === 'required' && <span class="text-error label-text-alt">{errors.password.message}</span>}
-                    {errors.password?.type === 'pattern' && <span class="text-error label-text-alt">{errors.password.message}</span>}
+                    <label className="label">
+                    {errors.password?.type === 'required' && <span className="text-error label-text-alt">{errors.password.message}</span>}
+                    {errors.password?.type === 'maxLength' && <span className="text-error label-text-alt">{errors.password.message}</span>}
                     </label>
                 </div>
-                <label class="label">
-                        <span class="label-text">Forgot Password ?</span>
+                <label className="label">
+                        <span className="label-text">Forgot Password ?</span>
                 </label>
                     
                     <input className='btn btn-primary w-full' type="submit" value="LOGIN" />
                 </form>
 
-                    <h1>New to Doctors Portal? <Link style={{color: '#F59E0B'}} to="/">Create new account</Link></h1>
-                    <div class="divider">OR</div>
-                    <button onClick={() => signInWithGoogle()} class="btn btn-outline">CONTINUE WITH GOOGLE</button>
+                    <h1>New to Doctors Portal? <Link style={{color: '#F59E0B'}} to="/signUp">Create new account</Link></h1>
+                    <div className="divider">OR</div>
+                    <button onClick={() => signInWithGoogle()} className="btn btn-outline">CONTINUE WITH GOOGLE</button>
                 </div>
             </div>
         </div>
