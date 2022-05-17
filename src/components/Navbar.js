@@ -1,19 +1,41 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink } from 'react-router-dom';
+import auth from '../Firebase/firebase.init';
 
 const Navbar = ({children}) => {
+  const [user, loading, error] = useAuthState(auth);
+  const logout = () => {
+    signOut(auth);
+  };
+  
   const menuItem = <>
     <li><NavLink className='rounded-lg' to="/">Home</NavLink></li>
     <li><NavLink className='rounded-lg' to="/about">About</NavLink></li>
     <li><NavLink className='rounded-lg' to="/services">Services</NavLink></li>
     <li><NavLink className='rounded-lg' to="/contact">Contact</NavLink></li>
-    <li><NavLink className='rounded-lg' to="/login">Login</NavLink></li>
-    <li className='dropdown dropdown-hover dropdown-end'>
+    <li>
+      {
+        user  ? <NavLink onClick={logout} className='rounded-lg' to="/login">Logout</NavLink> : <NavLink className='rounded-lg' to="/login">Login</NavLink>
+      }
+    </li>
+    <li className='dropdown dropdown-hover dropdown-end lg:block md:hidden sm:hidden hidden'>
         <label tabIndex="0" className="btn-outline rounded-lg">Book Now</label>
           <ul tabIndex="0" className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
             <li><a>Item 1</a></li>
             <li><a>Item 2</a></li>
           </ul>
+      </li>
+      <li>
+        <select className="select w-full max-w-xs lg:hidden">
+          <option disabled selected>Book Now</option>
+          <option className='bg-accent'>Item 1</option>
+          <option className='bg-accent'>Item 2</option>
+          <option className='bg-accent'>Bart</option>
+          <option className='bg-accent'>Lisa</option>
+          <option className='bg-accent'>Maggie</option>
+        </select>
       </li>
       <label className="swap swap-rotate">
           <input type="checkbox" data-toggle-theme="dark,light" />
