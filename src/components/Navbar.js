@@ -1,17 +1,23 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import auth from '../Firebase/firebase.init';
+import useAdmin from '../hooks/useAdmin';
 
 const Navbar = ({children}) => {
   const [user, loading, error] = useAuthState(auth);
   const logout = () => {
     signOut(auth);
   };
+
+  const [admin] = useAdmin();
+
+  const {pathname} = useLocation()
   
   const menuItem = <>
     <li><NavLink className='rounded-lg' to="/">Home</NavLink></li>
+    {admin && <li><NavLink className='rounded-lg' to="/dashboard/add-service">Dashboard</NavLink></li>}
     <li><NavLink className='rounded-lg' to="/about">About</NavLink></li>
     <li><NavLink className='rounded-lg' to="/services">Services</NavLink></li>
     <li><NavLink className='rounded-lg' to="/contact">Contact</NavLink></li>
@@ -48,6 +54,9 @@ const Navbar = ({children}) => {
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
         <div className="drawer-content flex flex-col">
           <div className="w-full navbar fixed top-0 z-50 bg-base-100 lg:px-20">
+          { pathname.includes('dashboard') && <label for="my-drawer-2" tabindex="0" class="btn btn-ghost lg:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </label>}
           <div className="flex-1 px-2 mx-2">Clean-Co</div>
           <div className="flex-none lg:hidden">
               <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
